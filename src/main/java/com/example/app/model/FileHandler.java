@@ -11,7 +11,7 @@ public class FileHandler {
   private FormatChecker formatChecker;
 
   @Autowired
-  public FileHandler(JPEGChecker formatChecker) {
+  public FileHandler(FormatChecker formatChecker) {
     this.formatChecker = formatChecker;
   }
 
