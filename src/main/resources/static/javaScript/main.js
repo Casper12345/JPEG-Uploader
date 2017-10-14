@@ -55,7 +55,7 @@ function postFiles(data) {
     data: data,
 
     success: function (result) {
-      location.href = "/"
+      location.href = "/completed"
     }
   });
 }

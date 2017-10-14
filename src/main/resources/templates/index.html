@@ -51,25 +51,9 @@
   </div>
 </div>
 
+<!-- injected html -->
 
-<div id="bar2" class="container">
-  <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-      <div id="group2" class="input-group image-preview">
-
-        <div id="inner2" class="form-control"
-             th:text="${uploaded}+' JPEG files found and uploaded'"></div>
-
-        <span class="input-group-btn">
-          <div class="btn btn-default image-preview-input ">
-            <span onclick="clearAttributes()" class="image-preview-input-title">Clear All</span>
-          </div>
-        </span>
-      </div>
-
-    </div>
-  </div>
-</div>
+<div th:replace="@{${template}} :: content"></div>
 
 </body>
 

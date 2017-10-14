@@ -2,6 +2,8 @@ package com.example.app.controllers;
 
 import com.example.app.model.UploadHandler;
 import java.util.Map;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,26 +21,43 @@ public class MainController {
 
   @GetMapping("/")
   public String index(Map<String, Object> model) {
-    model.put("uploaded", 0);
+    model.put("template", "empty");
+    return "index";
+  }
+
+  @GetMapping("/completed")
+  public String completed(@CookieValue("numberOfFiles") String cookie, Map<String, Object> model) {
+
+    model.put("template", "response");
+
+    if (cookie == null) {
+      model.put("uploaded", "0");
+    } else {
+      model.put("uploaded", cookie);
+    }
+
     return "index";
   }
 
   @PostMapping("/")
   public String uploadPost(@RequestParam("file") MultipartFile[] file,
-      Map<String, Object> model) {
+      HttpServletResponse response) {
 
     int uploaded = 0;
 
     if (file.length > 0) {
-       uploaded = uploadHandler.fileSaver(file);
+      uploaded = uploadHandler.fileSaver(file);
     }
 
-    return "redirect:/";
+    Cookie cookie = new Cookie("numberOfFiles", String.valueOf(uploaded));
+    cookie.setPath("/completed");
+    response.addCookie(cookie);
+
+    return "redirect:completed";
   }
 
   @GetMapping("/helper")
   public String helper(Map<String, Object> model) {
-
     return "index3";
   }
 
