@@ -1,30 +1,36 @@
-.container{
-  margin-top:20px;
-}
-.image-preview-input {
-  position: relative;
-  overflow: hidden;
-  margin: 0px;
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc;
-}
 
-#buttonOneAndTwo input[type=file] {
+#buttonOne input[type=file] {
   position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
   font-size: 20px;
   cursor: pointer;
   opacity: 0;
   filter: alpha(opacity=0);
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
 }
 
+#buttonOne {
+  padding-right: 16px;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+.image-preview-input, .image-preview-input:hover, .image-preview-input:active {
+  position: relative;
+  overflow: hidden;
+  margin: -4px;
+  color: gainsboro;
+  background-color: #1EA1EE !important;
+  border-color: #CCCCCC !important;
+
+}
 
 .image-preview-input-title {
-  margin-left:2px;
+  margin-left: 2px;
 }
 
 .outer-container {
@@ -38,25 +44,25 @@
   opacity: 0.2;
 }
 
-#bar{
+#bar {
   position: absolute;
   left: -120px;
   top: 80px;
 
 }
 
-#bar2{
+#bar2 {
   position: absolute;
   left: -120px;
   top: 150px;
+}
+
+#group2 {
+  box-shadow: 5px 5px 2px #888888;
+}
+
+#group {
+  box-shadow: 5px 5px 2px #888888
 
 }
 
-#group2{
-  box-shadow: 10px 10px 5px #888888
-}
-
-#group{
-  box-shadow: 10px 10px 5px #888888
-
-}

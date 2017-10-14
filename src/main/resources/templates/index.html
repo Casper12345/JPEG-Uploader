@@ -3,13 +3,15 @@
 
 <head>
   <title>JPEG Uploader</title>
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+
+  <link type="text/css" rel="stylesheet" th:href="@{/css/bootstrap-3.3.7/css/bootstrap.css}"
+        href="../../css/css/bootstrap-3.3.7/bootstrap.css"/>
 
   <script type="text/javascript" th:src="@{/javaScript/jquery-1.9.0.min.js}"
           src="../../javascript/jquery-1.9.0.min.js"></script>
 
-  <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}" href="../../css/main.css"/>
+  <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}"
+        href="../../css/bootstrap-3.3.7/css/bootstrap.css"/>
 </head>
 
 
@@ -24,26 +26,23 @@
     <div class="col-xs-12 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
       <div id="group" class="input-group image-preview">
 
-        <input id="inner" type="text" class="form-control image-preview-filename" disabled="disabled"/>
+        <input id="inner" type="text" class="form-control image-preview-filename"
+               disabled="disabled"/>
 
         <span class="input-group-btn">
-          <button id="button" type="button" class="btn btn-default image-preview-clear"
-                  style="display:none;">
-                        <span class="glyphicon glyphicon-remove"></span></button>
-                    <div id="buttonOneAndTwo" class="btn btn-default image-preview-input">
+
+                    <div id="buttonOne" class="btn btn-default image-preview-input">
                         <span class="glyphicon glyphicon-folder-open"></span>
-                        <span class="image-preview-input-title"></span>
 
                       <input id="file" type="file" name="file"
                              webkitdirectory="" onchange="selectFolder(event)"
                              mozdirectory="" msdirectory="" odirectory="" directory=""
                              multiple="multiple"/>
-
                     </div>
 
                       <div class="btn btn-default image-preview-input">
 
-                       <div onclick="post()"
+                       <div onclick="controllerPost()"
                             class="image-preview-input-title">Upload JPEG Files</div>
                      </div>
         </span>
@@ -62,7 +61,7 @@
              th:text="${uploaded}+' JPEG files found and uploaded'"></div>
 
         <span class="input-group-btn">
-          <div class="btn btn-default image-preview-input">
+          <div class="btn btn-default image-preview-input ">
             <span onclick="clearAttributes()" class="image-preview-input-title">Clear All</span>
           </div>
         </span>

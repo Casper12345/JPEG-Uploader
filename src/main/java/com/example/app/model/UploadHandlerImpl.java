@@ -5,49 +5,69 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-public class UploadHandlerImpl {
+@Service
+public class UploadHandlerImpl implements UploadHandler {
 
-  public static void main(String[] args) {
-    UploadHandlerImpl u = new UploadHandlerImpl();
+
+  private String uploadFolder;
+  private FileHandler fileHandler;
+
+  @Autowired
+  public UploadHandlerImpl(UploadFolderProperties properties, FileHandler fileHandler) {
+    this.fileHandler = fileHandler;
+    this.uploadFolder = properties.getUploadFolder();
   }
 
 
-  public boolean initFolder(String folder) {
-    return new File("uploadFolder/" + folder).mkdir();
+  private boolean initFolder(String folder) {
+    return new File(uploadFolder + "/" + folder).mkdir();
   }
 
 
-  public boolean fileSaver(MultipartFile files[]) {
+  public int fileSaver(MultipartFile files[]) {
 
-    String folder = files[0].getOriginalFilename()
-        .substring(0, files[0].getOriginalFilename().lastIndexOf('/'));
+    MultipartFile[] checkedFiles = fileHandler.checkedFiles(files);
 
-    initFolder(folder);
+    int counter = 0;
 
-    for (MultipartFile m : files) {
+    if (checkedFiles.length > 0) {
+      String folder = checkedFiles[0].getOriginalFilename()
+          .substring(0, checkedFiles[0].getOriginalFilename()
+              .lastIndexOf('/'));
 
-      String filename = StringUtils.cleanPath(m.getOriginalFilename()
-          .substring(m.getOriginalFilename().lastIndexOf('/') + 1));
+      initFolder(folder);
 
-      System.out.println(filename);
+      for (MultipartFile m : checkedFiles) {
 
-      try {
-        Files.copy(m.getInputStream(), Paths.get("uploadFolder/" + folder).resolve(filename),
-            StandardCopyOption.REPLACE_EXISTING);
-      } catch (IOException e) {
-        e.printStackTrace();
+        String filename = StringUtils.cleanPath(m.getOriginalFilename()
+            .substring(m.getOriginalFilename().lastIndexOf('/') + 1));
+
+        try {
+          Files.copy(m.getInputStream(), Paths.get(uploadFolder + "/" + folder).resolve(filename),
+              StandardCopyOption.REPLACE_EXISTING);
+          counter++;
+        } catch (IOException e) {
+          return counter;
+        }
       }
+
+      return counter;
+
+    } else {
+      return 0;
     }
-    return true;
+
   }
 
   public long fileCounter(String path) {
     int count = 0;
     try {
-      return Files.list(Paths.get("uploadFolder/" + path)).count();
+      return Files.list(Paths.get(uploadFolder + "/" + path)).count();
     } catch (IOException e) {
       return count;
     }

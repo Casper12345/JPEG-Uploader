@@ -17,11 +17,14 @@ function selectFolder(e) {
 }
 
 // post
-function post() {
+function controllerPost() {
 
-  var data = sortFilesByExtension();
+  if ($('#file').val() === '') {
+    alert('Please choose a folder to upload');
+  } else {
+    postFiles(sortFilesByExtension());
+  }
 
-  postFiles(data);
 }
 
 // sort files
