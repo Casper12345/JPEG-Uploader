@@ -1,34 +1,53 @@
-function hello() {
-  alert("hell0");
-}
+/**
+ * Function for clearing attributes.
+ * Clears file input and both text fields.
+ */
+
+
+console.log(document.cookie);
+
 
 function clearAttributes() {
   $("#file").val("");
   $("#inner").val("");
   $('#inner2').empty();
+  console.log(document.cookie);
+  document.cookie = 'message' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=[completed]';
+  console.log(document.cookie);
 }
 
-// get folder name
-function selectFolder(e) {
-  var theFiles = e.target.files;
+/**
+ * Function for getting folder name from file path and
+ * returning it as a string.
+ * @param input from event.
+ */
+function selectFolder(input) {
+  var theFiles = input.target.files;
   var relativePath = theFiles[0].webkitRelativePath;
   var folder = relativePath.split("/");
   setInner(folder[0]);
 }
 
-// post
+/**
+ * Controller function for posting files.
+ * Collects functionality from file filtering and post.
+ * Calls postFiles and filterFilesByExtension.
+ */
 function controllerPost() {
 
   if ($('#file').val() === '') {
     alert('Please choose a folder to upload');
   } else {
-    postFiles(sortFilesByExtension());
+    postFiles(filterFilesByExtension());
   }
 
 }
 
-// sort files
-function sortFilesByExtension() {
+/**
+ * Function for filtering files by file extensions as string.
+ * @returns FormData with filtered files.
+ */
+function filterFilesByExtension() {
 
   var data = new FormData();
 
@@ -44,7 +63,10 @@ function sortFilesByExtension() {
   return data;
 }
 
-// post files
+/**
+ * Function for sending multipart files as array by POST request.
+ * @param data array of multipart files.
+ */
 function postFiles(data) {
   $.ajax({
     type: 'POST',
@@ -60,7 +82,10 @@ function postFiles(data) {
   });
 }
 
-// set folder name
+/**
+ * Function for setting folder name in first text field.
+ * @param folderName name of folder as string.
+ */
 function setInner(folderName) {
   $("#inner").val(folderName);
 }

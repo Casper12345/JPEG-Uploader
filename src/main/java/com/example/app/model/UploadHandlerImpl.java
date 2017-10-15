@@ -1,10 +1,9 @@
 package com.example.app.model;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -16,20 +15,21 @@ public class UploadHandlerImpl implements UploadHandler {
 
   private String uploadFolder;
   private FileHandler fileHandler;
+  private UploadUtil uploadUtil;
 
   @Autowired
-  public UploadHandlerImpl(UploadFolderProperties properties, FileHandler fileHandler) {
+  public UploadHandlerImpl(UploadFolderProperties properties,
+      FileHandler fileHandler, UploadUtil uploadUtil) {
     this.fileHandler = fileHandler;
     this.uploadFolder = properties.getUploadFolder();
+    this.uploadUtil = uploadUtil;
   }
 
-
-  private boolean initFolder(String folder) {
-    return new File(uploadFolder + "/" + folder).mkdir();
+  private Path initFolder(String folder) throws IOException {
+    return Files.createDirectory(Paths.get(uploadFolder + "/" + folder));
   }
 
-
-  public int fileSaver(MultipartFile files[]) {
+  public int fileSaver(MultipartFile files[]) throws IOException {
 
     MultipartFile[] checkedFiles = fileHandler.checkedFiles(files);
 
@@ -40,7 +40,10 @@ public class UploadHandlerImpl implements UploadHandler {
           .substring(0, checkedFiles[0].getOriginalFilename()
               .lastIndexOf('/'));
 
-      initFolder(folder);
+      String newFolderName = uploadUtil.createFolderName(folder);
+
+      // throws IOException
+      initFolder(newFolderName);
 
       for (MultipartFile m : checkedFiles) {
 
@@ -48,8 +51,8 @@ public class UploadHandlerImpl implements UploadHandler {
             .substring(m.getOriginalFilename().lastIndexOf('/') + 1));
 
         try {
-          Files.copy(m.getInputStream(), Paths.get(uploadFolder + "/" + folder).resolve(filename),
-              StandardCopyOption.REPLACE_EXISTING);
+          Files.copy(m.getInputStream(), Paths.get(uploadFolder + "/" + newFolderName)
+              .resolve(filename));
           counter++;
         } catch (IOException e) {
           return counter;
@@ -59,19 +62,9 @@ public class UploadHandlerImpl implements UploadHandler {
       return counter;
 
     } else {
-      return 0;
+      return counter;
     }
 
   }
-
-  public long fileCounter(String path) {
-    int count = 0;
-    try {
-      return Files.list(Paths.get(uploadFolder + "/" + path)).count();
-    } catch (IOException e) {
-      return count;
-    }
-  }
-
 
 }

@@ -1,8 +1,8 @@
 package com.example.app.controllers;
 
 import com.example.app.model.UploadHandler;
+import java.io.IOException;
 import java.util.Map;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,27 +16,34 @@ import org.springframework.web.multipart.MultipartFile;
 public class MainController {
 
   private UploadHandler uploadHandler;
+  private ControllerUtil controllerUtil;
 
   @Autowired
   public void setUploadHandler(UploadHandler uploadHandler) {
     this.uploadHandler = uploadHandler;
   }
 
+  @Autowired
+  public void setControllerUtil(ControllerUtil controllerUtil) {
+    this.controllerUtil = controllerUtil;
+  }
+
   @GetMapping("/")
-  public String index(Map<String, Object> model) {
+  public String index(Map<String, Object> model, HttpServletResponse response) {
+    controllerUtil.deleteCookie(response);
     model.put("template", "empty");
     return "index";
   }
 
   @GetMapping("/completed")
-  public String completed(@CookieValue("numberOfFiles") String cookie, Map<String, Object> model) {
+  public String completed(@CookieValue(value = "message", required = false) String cookie, Map<String, Object> model) {
 
     model.put("template", "response");
 
     if (cookie == null) {
-      model.put("uploaded", "0");
+      model.put("message", "");
     } else {
-      model.put("uploaded", cookie);
+      model.put("message", cookie); // +" JPEG files found and uploaded"
     }
 
     return "index";
@@ -49,19 +56,17 @@ public class MainController {
     int uploaded = 0;
 
     if (file.length > 0) {
-      uploaded = uploadHandler.fileSaver(file);
+      try {
+        uploaded = uploadHandler.fileSaver(file);
+      } catch (IOException e) {
+        throw new CustomException("Folder could not be initiated", e);
+      }
     }
 
-    Cookie cookie = new Cookie("numberOfFiles", String.valueOf(uploaded));
-    cookie.setPath("/completed");
-    response.addCookie(cookie);
+    controllerUtil.cookieMessageCreater(String.valueOf(uploaded) + " JPEG files found and uploaded"
+        .replaceAll(" ", "%20"), response);
 
     return "redirect:completed";
-  }
-
-  @GetMapping("/helper")
-  public String helper(Map<String, Object> model) {
-    return "index3";
   }
 
 
