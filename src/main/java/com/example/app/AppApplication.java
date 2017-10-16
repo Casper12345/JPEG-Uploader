@@ -3,8 +3,8 @@ package com.example.app;
 import com.example.app.controllers.ControllerUtil;
 import com.example.app.model.FileHandler;
 import com.example.app.model.JPEGChecker;
-import com.example.app.model.UploadFolderProperties;
 import com.example.app.model.UploadFolderHelper;
+import com.example.app.model.UploadFolderProperties;
 import com.example.app.model.UploadUtil;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Bean;
 
 /**
  * Main entry point of spring boot application.
- *
- * Contains configuration properties for autowired dependencies.
+ * Contains configuration properties for autowired
+ * dependencies.
  */
 @SpringBootApplication
 @EnableConfigurationProperties({UploadFolderProperties.class,
@@ -30,8 +30,7 @@ public class AppApplication {
 
 
   /**
-   * CommandLineRunner interface that calls checkAndCreateUploadFolder.
-   * Runs to check and create
+   * CommandLineRunner interface that calls checkAndCreateUploadFolder. Runs to check and create
    * destination folder for upload sub-folders.
    */
   @Bean

@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
   }
 
   /**
-   * Catches CustomExceptions
+   * Catches CustomExceptions.
    *
    * @param e exception.
    * @param response servlet response.
@@ -40,7 +40,6 @@ public class GlobalExceptionHandler {
 
   /**
    * Catches All Exceptions. Does not catch Errors.
-   *
    * Thymeleaf refers automatically to error.html in templates.
    *
    * @param e exception.

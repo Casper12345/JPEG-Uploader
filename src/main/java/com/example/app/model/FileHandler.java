@@ -29,7 +29,7 @@ public class FileHandler {
   }
 
   /**
-   * Method for checking isFile
+   * Method for checking isFile.
    *
    * @return boolean
    */

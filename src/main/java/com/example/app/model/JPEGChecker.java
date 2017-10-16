@@ -26,6 +26,8 @@ public class JPEGChecker implements FormatChecker {
           new BufferedInputStream(multipartFile.getInputStream()));
       int readFour = ins.readInt();
 
+      ins.close();
+
       // checks first 4 bytes.
       // result should be between FF D8 FF E0 -3 and FF D8 FF E8 -3.
 

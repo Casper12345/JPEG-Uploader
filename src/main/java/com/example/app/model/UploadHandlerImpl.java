@@ -19,6 +19,13 @@ public class UploadHandlerImpl implements UploadHandler {
   private FileHandler fileHandler;
   private UploadUtil uploadUtil;
 
+  /**
+   * Constructor takes properties, fileHandler and uploadUtil via DI.
+   *
+   * @param properties UploadFolderProperties
+   * @param fileHandler FileHandler
+   * @param uploadUtil UploadUtil
+   */
   @Autowired
   public UploadHandlerImpl(UploadFolderProperties properties,
       FileHandler fileHandler, UploadUtil uploadUtil) {
@@ -45,7 +52,7 @@ public class UploadHandlerImpl implements UploadHandler {
    * @return int of uploaded files counted.
    * @throws IOException rethrows IOException if folder cannot be initiated
    */
-  public int fileSaver(MultipartFile files[]) throws IOException {
+  public int fileSaver(MultipartFile[] files) throws IOException {
 
     MultipartFile[] checkedFiles = fileHandler.checkedFiles(files);
 

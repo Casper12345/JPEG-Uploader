@@ -46,7 +46,6 @@ public class MainController {
 
   /**
    * Get mapping for /completed Renders index.html with response.html injected.
-   *
    * Sets 'message' variable in response.html to cookie message.
    *
    * @param model mapping thymeleaf variable 'template' dynamically deciding what html to inject.

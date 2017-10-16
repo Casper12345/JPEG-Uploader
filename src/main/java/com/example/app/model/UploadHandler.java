@@ -11,6 +11,6 @@ public interface UploadHandler {
   /**
    * Method for saving file multipart files to disk.
    */
-  int fileSaver(MultipartFile files[]) throws IOException;
+  int fileSaver(MultipartFile[] files) throws IOException;
 
 }
