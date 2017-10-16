@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Class for handling upload of Multipart files to disk.
+ */
 @Service
 public class UploadHandlerImpl implements UploadHandler {
-
 
   private String uploadFolder;
   private FileHandler fileHandler;
@@ -25,10 +27,24 @@ public class UploadHandlerImpl implements UploadHandler {
     this.uploadUtil = uploadUtil;
   }
 
+  /**
+   * Method for creating subfolder of files from one upload.
+   *
+   * @param folder String name of folder.
+   * @return Path to folder
+   * @throws IOException if folder cannot be created.
+   */
   private Path initFolder(String folder) throws IOException {
     return Files.createDirectory(Paths.get(uploadFolder + "/" + folder));
   }
 
+  /**
+   * Method for saving files to disk. Counts uploaded files.
+   *
+   * @param files filtered multipart files.
+   * @return int of uploaded files counted.
+   * @throws IOException rethrows IOException if folder cannot be initiated
+   */
   public int fileSaver(MultipartFile files[]) throws IOException {
 
     MultipartFile[] checkedFiles = fileHandler.checkedFiles(files);
@@ -42,7 +58,7 @@ public class UploadHandlerImpl implements UploadHandler {
 
       String newFolderName = uploadUtil.createFolderName(folder);
 
-      // throws IOException
+      // rethrows IOException for initFolder
       initFolder(newFolderName);
 
       for (MultipartFile m : checkedFiles) {

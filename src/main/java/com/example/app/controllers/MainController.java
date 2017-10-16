@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Main controller class.
+ */
 @Controller
 public class MainController {
 
@@ -28,6 +31,11 @@ public class MainController {
     this.controllerUtil = controllerUtil;
   }
 
+  /**
+   * Get mapping for /. Renders index.html with empty.html injected.
+   *
+   * @param model mapping thymeleaf variable 'template' dynamically deciding what html to inject.
+   */
   @GetMapping("/")
   public String index(Map<String, Object> model, HttpServletResponse response) {
     controllerUtil.deleteCookie(response);
@@ -35,6 +43,13 @@ public class MainController {
     return "index";
   }
 
+  /**
+   * Get mapping for /completed Renders index.html with response.html injected.
+   *
+   * Sets 'message' variable in response.html to cookie message.
+   *
+   * @param model mapping thymeleaf variable 'template' dynamically deciding what html to inject.
+   */
   @GetMapping("/completed")
   public String completed(@CookieValue(value = "message", required = false) String cookie,
       Map<String, Object> model) {
@@ -50,6 +65,11 @@ public class MainController {
     return "index";
   }
 
+  /**
+   * Post mapping for /. NB! AJAX redirect to /completed is performed by main.js.
+   *
+   * @param file multipart files from post request send from main.js.
+   */
   @PostMapping("/")
   public String uploadPost(@RequestParam("file") MultipartFile[] file,
       HttpServletResponse response) {

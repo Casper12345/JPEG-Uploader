@@ -6,9 +6,18 @@ import java.io.IOException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Class implementing FormatChecker. Checks if format is instance of JPEG by checking signature of
+ * first 4 bytes of file.
+ */
 @ConfigurationProperties("formatChecker")
 public class JPEGChecker implements FormatChecker {
 
+  /**
+   * Method that verifies if files is JPEG by checking file signature.
+   *
+   * @return boolean
+   */
   @Override
   public boolean isFile(MultipartFile multipartFile) {
 

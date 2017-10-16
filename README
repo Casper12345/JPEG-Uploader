@@ -1,3 +1,5 @@
 The file uploader is platform specific targeted at Unix based servers.
+File paths may be changed according to platform.
+
 
 

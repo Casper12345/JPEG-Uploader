@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * File handler class for checking validity of files.
+ */
 @ConfigurationProperties("fileHandler")
 public class FileHandler {
 
@@ -15,7 +18,9 @@ public class FileHandler {
     this.formatChecker = formatChecker;
   }
 
-
+  /**
+   * Method for filtering files if: they are empty or do not adhere to FormatChecker.isFile.
+   */
   public MultipartFile[] checkedFiles(MultipartFile[] multipartFiles) {
     return Arrays.stream(multipartFiles)
         .filter(b -> !b.isEmpty())
@@ -23,6 +28,11 @@ public class FileHandler {
         .toArray(MultipartFile[]::new);
   }
 
+  /**
+   * Method for checking isFile
+   *
+   * @return boolean
+   */
   private boolean fileChecker(MultipartFile multipartFile) {
     return formatChecker.isFile(multipartFile);
   }

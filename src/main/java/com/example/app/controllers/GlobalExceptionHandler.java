@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MultipartException;
 
-
+/**
+ * Global class for exception catching/handling.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -19,6 +21,13 @@ public class GlobalExceptionHandler {
     this.controllerUtil = controllerUtil;
   }
 
+  /**
+   * Catches CustomExceptions
+   *
+   * @param e exception.
+   * @param response servlet response.
+   * @return redirects to completed. NB! AJAX redirect is performed by script.
+   */
   @ExceptionHandler(CustomException.class)
   public String customExceptionHandler(CustomException e, HttpServletResponse response) {
 
@@ -29,8 +38,17 @@ public class GlobalExceptionHandler {
 
   }
 
+  /**
+   * Catches All Exceptions. Does not catch Errors.
+   *
+   * Thymeleaf refers automatically to error.html in templates.
+   *
+   * @param e exception.
+   * @param response servlet response.
+   * @return redirects to completed. NB! AJAX redirect is performed by script.
+   */
   @ExceptionHandler(Exception.class)
-  public String exceptionHandler(CustomException e, HttpServletResponse response) {
+  public String exceptionHandler(Exception e, HttpServletResponse response) {
 
     controllerUtil
         .cookieMessageCreater("An Error Occurred - No files were uploaded".replaceAll(" ", "%20"),
@@ -40,6 +58,10 @@ public class GlobalExceptionHandler {
 
   }
 
+  /**
+   * Catches MultipartExceptions. Custom message for SizeLimitExceededException and
+   * FileSizeLimitExceededException.
+   */
   @ExceptionHandler(MultipartException.class)
   public String multipartHandler(MultipartException e, HttpServletResponse response) {
 
@@ -47,12 +69,15 @@ public class GlobalExceptionHandler {
 
       controllerUtil.cookieMessageCreater("Overall file size was exceeded"
           .replaceAll(" ", "%20"), response);
-    }
-
-    if (ExceptionUtils.getRootCause(e) instanceof FileUploadBase.FileSizeLimitExceededException) {
+    } else if (ExceptionUtils
+        .getRootCause(e) instanceof FileUploadBase.FileSizeLimitExceededException) {
 
       controllerUtil.cookieMessageCreater("File size was exceeded"
           .replaceAll(" ", "%20"), response);
+    } else {
+      controllerUtil
+          .cookieMessageCreater("An Error Occurred - No files were uploaded".replaceAll(" ", "%20"),
+              response);
     }
 
     return "redirect:completed";

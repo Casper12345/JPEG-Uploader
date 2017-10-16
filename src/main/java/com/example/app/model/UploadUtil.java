@@ -1,6 +1,5 @@
 package com.example.app.model;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.apache.commons.lang.RandomStringUtils;
@@ -35,16 +34,6 @@ public class UploadUtil {
 
   private String generateRandomString() {
     return RandomStringUtils.random(8, true, false);
-  }
-
-
-  public long fileCounter(String path, String uploadFolder) {
-    int count = 0;
-    try {
-      return Files.list(Paths.get(uploadFolder + "/" + path)).count();
-    } catch (IOException e) {
-      return count;
-    }
   }
 
 }
