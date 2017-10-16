@@ -11,9 +11,11 @@ All code for this submission was entirely written by Casper Nielsen.
 
 Software stack:
 
-The application is build using Java version 1.8
+The application is build using Java version 1.8.
 
-Project Built with Maven.
+Boostrap version 3.
+
+Project Built using Maven.
 
 Controllers, Models were written using Spring Boot Framework.
 
