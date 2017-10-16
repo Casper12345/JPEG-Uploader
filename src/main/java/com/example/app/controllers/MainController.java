@@ -32,7 +32,8 @@ public class MainController {
   }
 
   /**
-   * Get mapping for /. Renders index.html with empty.html injected.
+   * Get mapping for /.
+   * Renders index.html with empty.html injected.
    *
    * @param model mapping thymeleaf variable 'template' dynamically deciding what html to inject.
    */
