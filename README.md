@@ -2,8 +2,9 @@
 
 This is a JPEG uploader created to satisfy the JPEG uploader challenge.
 The JPEG uploader recognises files of type:  .jpeg and .jpg
-The application is targeted for Unix type servers and uses Unix style path annotation.
-The name of th main upload folder for the application is set in the class UploadFolderProperties.
+The application is targeted for Unix type servers and uses Unix style path separator notation.
+The name of the main upload folder at root is set in the class UploadFolderProperties, by changing the
+string UPLOADFOLDER and the folder is constructed at run time.
 The application uses a REST-ful style and does not store any state globally and passes variables via
 cookies and POST requests.
 
@@ -21,15 +22,13 @@ Controllers, Models were written using Spring Boot Framework.
 
 Git/Github used for version control.
 
-Used IntelliJ to code the app.
-
 ThymeLeaf was used as template engine.
 
-HTML5, CSS3, jQuery and JavaScript was used for the front end. 
+HTML5, CSS3, jQuery and JavaScript were used for the front end. 
 
 ### How to Run the Program:
 
-The program is build and run using maven with the command.
+The program is build and run using Maven with the command:
 
  $ mvn spring-boot:run
 
@@ -41,7 +40,7 @@ The github repo can be found under: https://github.com/Casper12345/JPEG-Uploader
 
 Unit tests were created using JUnit4.
 
-To run tests using maven type the following command:
+To run tests using Maven use the following command:
 
  $ mvn test
  
