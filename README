@@ -1,5 +1,49 @@
-The file uploader is platform specific targeted at Unix based servers.
-File paths may be changed according to platform.
+About:
+
+This is a JPEG uploader created to satisfy the JPEG uploader challenge.
+The JPEG uploader recognises files of type:  .jpeg and .jpg
+The application is targeted for unix type servers and uses unix style path annotation.
+The name of th main upload folder for the application is set in the class UploadFolderProperties.
+The application uses a REST-ful style and does not store any state globally and passes variables via
+cookies and POST requests.
+
+All code for this submission was entirely written by Casper Nielsen.
+
+The requirement to satisfy were:
+
+-  This test assignment require client+server side implementation
+-  The preferred choice of language is Java 1.8
+-  Any Java application server (e.g. tomcat/JBoss etc.) can be used
+-  Preference will be given to Spring Boot based application framework.
+-  No restriction on any libraries or any related code / help from any source but the applicants are
+   required to explain the code during their interview session and choices they made to make
+   this application work.
+
+
+Software stack:
+
+The application is build using Java version 1.8
+
+Project Built with Maven.
+
+Controllers, Models were written using Spring Boot Framework.
+
+Git/Github used for version control.
+
+Used IntelliJ to code the app.
+
+ThymeLeaf was used as template engine.
+
+
+How to Run the Program:
+
+The program is build and run using maven with the command:
+
+ $ mvn spring-boot:run
+
+Repo:
+
+The github repo can be found under: https://github.com/Casper12345/JPEG-Uploader
 
 
 
