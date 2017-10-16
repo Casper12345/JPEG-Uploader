@@ -25,6 +25,7 @@ Used IntelliJ to code the app.
 
 ThymeLeaf was used as template engine.
 
+HTML5, CSS3, jQuery and JavaScript was used for the front end. 
 
 How to Run the Program:
 
@@ -36,5 +37,14 @@ Repo:
 
 The github repo can be found under: https://github.com/Casper12345/JPEG-Uploader
 
+Tests:
+
+Unit tests were created using JUnit4.
+
+To run tests using maven type the following command:
+
+ $ mvn test
+ 
+ 
 
 
