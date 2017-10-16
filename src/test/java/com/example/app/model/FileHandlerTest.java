@@ -3,26 +3,31 @@ package com.example.app.model;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @SpringBootTest
 @RunWith(SpringJUnit4ClassRunner.class)
-public class JPEGCheckerTest {
-
+public class FileHandlerTest {
 
   @Test
-  public void testIsFile() throws Exception {
+  public void checkedFilesTestIfFilterEmpty() throws Exception {
 
     byte jpegImage[] = {(byte) 0xff, (byte) 0xd8, (byte) 0xff, (byte) 0xe0};
     byte cannonJpegBytes[] = {(byte) 0xff, (byte) 0xd8, (byte) 0xff, (byte) 0xe2};
     byte SPIFFJpgBytes[] = {(byte) 0xff, (byte) 0xd8, (byte) 0xff, (byte) 0xe8};
 
-    byte pdfBytes[] = {(byte) 0x25, (byte) 0x50, (byte) 0x44, (byte) 0x46};
-    byte gifBytes[] = {(byte) 0x47, (byte) 0x49, (byte) 0x46, (byte) 0x38};
-    byte docXBytes[] = {(byte) 0x50, (byte) 0x4b, (byte) 0x03, (byte) 0x04};
+    byte empty[] = {(byte) 0, (byte) 0, (byte) 0, (byte) 0};
+    byte empty2[] = {(byte) 0, (byte) 0, (byte) 0, (byte) 0};
+    byte empty3[] = {(byte) 0, (byte) 0, (byte) 0, (byte) 0};
+
+    FormatChecker formatChecker = new JPEGChecker();
+    FileHandler f = new FileHandler(formatChecker);
 
     MockMultipartFile f1 =
         new MockMultipartFile("data", "filename.jpg", "text/plain", jpegImage);
@@ -34,23 +39,24 @@ public class JPEGCheckerTest {
         new MockMultipartFile("data", "filename.jpg", "text/plain", SPIFFJpgBytes);
 
     MockMultipartFile f4 =
-        new MockMultipartFile("data", "filename.jpg", "text/plain", pdfBytes);
+        new MockMultipartFile("data", "filename.jpg", "text/plain", empty);
 
     MockMultipartFile f5 =
-        new MockMultipartFile("data", "filename.jpg", "text/plain", gifBytes);
+        new MockMultipartFile("data", "filename.jpg", "text/plain", empty2);
 
     MockMultipartFile f6 =
-        new MockMultipartFile("data", "filename.jpg", "text/plain", docXBytes);
+        new MockMultipartFile("data", "filename.jpg", "text/plain", empty3);
 
-    JPEGChecker n = new JPEGChecker();
+    MultipartFile[] m = new MockMultipartFile[6];
 
-    assertTrue(n.isFile(f1));
-    assertTrue(n.isFile(f2));
-    assertTrue(n.isFile(f3));
+    m[0] = f1;
+    m[1] = f2;
+    m[2] = f3;
+    m[3] = f4;
+    m[4] = f5;
+    m[5] = f6;
 
-    assertFalse(n.isFile(f4));
-    assertFalse(n.isFile(f5));
-    assertFalse(n.isFile(f6));
+    assertEquals(f.checkedFiles(m).length, 3);
 
   }
 
