@@ -3,8 +3,8 @@
   position: absolute;
   font-size: 20px;
   cursor: pointer;
-  opacity: 0;
   filter: alpha(opacity=0);
+  opacity: 0;
   top: 0;
   right: 0;
   margin: 0;
@@ -38,7 +38,7 @@
   padding: 7px;
   width: 100%;
   min-height: 100vh;
-  background-color: #cccccc;
+  background-color: #CCCCCC;
   background-size: cover;
   background-position: center;
   opacity: 0.2;

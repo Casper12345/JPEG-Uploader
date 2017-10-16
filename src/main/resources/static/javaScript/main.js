@@ -1,19 +1,12 @@
 /**
  * Function for clearing attributes.
- * Clears file input and both text fields.
+ * Clears file input, both text fields and cookie.
  */
-
-
-console.log(document.cookie);
-
-
 function clearAttributes() {
   $("#file").val("");
   $("#inner").val("");
   $('#inner2').empty();
-  console.log(document.cookie);
-  document.cookie = 'message' + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=[completed]';
-  console.log(document.cookie);
+  clearCookie();
 }
 
 /**
@@ -89,4 +82,19 @@ function postFiles(data) {
 function setInner(folderName) {
   $("#inner").val(folderName);
 }
+
+/**
+ * Function for clearing cookie.
+ */
+function clearCookie() {
+  document.cookie = 'message=; path=/completed; expires='
+      + new Date(0).toUTCString();
+}
+
+/**
+ * Destroys cookie on page refresh.
+ */
+$(window).unload(function () {
+  clearCookie();
+});
 

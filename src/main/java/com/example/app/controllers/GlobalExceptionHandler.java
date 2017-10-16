@@ -1,6 +1,5 @@
 package com.example.app.controllers;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.tomcat.util.http.fileupload.FileUploadBase;
@@ -24,7 +23,7 @@ public class GlobalExceptionHandler {
   public String customExceptionHandler(CustomException e, HttpServletResponse response) {
 
     controllerUtil.cookieMessageCreater("An Error Occurred - No files were uploaded"
-            .replaceAll(" ", "%20"), response);
+        .replaceAll(" ", "%20"), response);
 
     return "redirect:completed";
 
@@ -33,31 +32,31 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(Exception.class)
   public String exceptionHandler(CustomException e, HttpServletResponse response) {
 
-    controllerUtil.cookieMessageCreater("An Error Occurred - No files were uploaded".replaceAll(" ", "%20"),
-        response);
+    controllerUtil
+        .cookieMessageCreater("An Error Occurred - No files were uploaded".replaceAll(" ", "%20"),
+            response);
 
     return "redirect:completed";
 
   }
-
 
   @ExceptionHandler(MultipartException.class)
   public String multipartHandler(MultipartException e, HttpServletResponse response) {
 
     if (ExceptionUtils.getRootCause(e) instanceof FileUploadBase.SizeLimitExceededException) {
 
-      controllerUtil.cookieMessageCreater("Overall file size is exceeded"
+      controllerUtil.cookieMessageCreater("Overall file size was exceeded"
           .replaceAll(" ", "%20"), response);
     }
 
     if (ExceptionUtils.getRootCause(e) instanceof FileUploadBase.FileSizeLimitExceededException) {
 
-      controllerUtil.cookieMessageCreater("File size is exceeded".replaceAll(" ", "%20"), response);
+      controllerUtil.cookieMessageCreater("File size was exceeded"
+          .replaceAll(" ", "%20"), response);
     }
 
     return "redirect:completed";
   }
-
 
 
 }

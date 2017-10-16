@@ -36,14 +36,15 @@ public class MainController {
   }
 
   @GetMapping("/completed")
-  public String completed(@CookieValue(value = "message", required = false) String cookie, Map<String, Object> model) {
+  public String completed(@CookieValue(value = "message", required = false) String cookie,
+      Map<String, Object> model) {
 
     model.put("template", "response");
 
     if (cookie == null) {
       model.put("message", "");
     } else {
-      model.put("message", cookie); // +" JPEG files found and uploaded"
+      model.put("message", cookie);
     }
 
     return "index";

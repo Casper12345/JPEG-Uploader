@@ -9,17 +9,18 @@ public class ControllerUtil {
 
   public void cookieMessageCreater(String message, HttpServletResponse response) {
     Cookie cookie = new Cookie("message", message);
+    cookie.setHttpOnly(false);
     cookie.setPath("/completed");
-    // 10 minutes time to live
-    cookie.setMaxAge(60 * 10);
+    // time to live 20 seconds
+    cookie.setMaxAge(20);
     response.addCookie(cookie);
   }
 
   public void deleteCookie(HttpServletResponse response) {
-    Cookie cookie = new Cookie("message", null); // Not necessary, but saves bandwidth.
+    Cookie cookie = new Cookie("message", null);
     cookie.setPath("/completed");
     cookie.setHttpOnly(true);
-    cookie.setMaxAge(0); // Don't set to -1 or it will become a session cookie!
+    cookie.setMaxAge(0);
     response.addCookie(cookie);
   }
 
