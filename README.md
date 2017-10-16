@@ -1,4 +1,4 @@
-###About:
+### About:
 
 This is a JPEG uploader created to satisfy the JPEG uploader challenge.
 The JPEG uploader recognises files of type:  .jpeg and .jpg
@@ -9,7 +9,7 @@ cookies and POST requests.
 
 All code for this submission was entirely written by Casper Nielsen.
 
-###Software stack:
+### Software stack:
 
 The application is build using Java version 1.8.
 
@@ -27,17 +27,17 @@ ThymeLeaf was used as template engine.
 
 HTML5, CSS3, jQuery and JavaScript was used for the front end. 
 
-###How to Run the Program:
+### How to Run the Program:
 
 The program is build and run using maven with the command.
 
  $ mvn spring-boot:run
 
-###Repo:
+### Repo:
 
 The github repo can be found under: https://github.com/Casper12345/JPEG-Uploader
 
-###Tests:
+### Tests:
 
 Unit tests were created using JUnit4.
 
