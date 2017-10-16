@@ -10,9 +10,6 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.multipart.MultipartFile;
 
-
-@SpringBootTest
-@RunWith(SpringJUnit4ClassRunner.class)
 public class FileHandlerTest {
 
   @Test
