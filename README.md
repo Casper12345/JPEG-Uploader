@@ -5,6 +5,8 @@ The JPEG uploader recognises files of type:  .jpeg and .jpg
 The application is targeted at Unix type servers and uses Unix style path separator notation.
 The name of the main upload folder at root is set in the class UploadFolderProperties, by changing the
 string UPLOADFOLDER and the folder is constructed at run time.
+Maximum file size for uploads is set to 100MB and altogether maximum files size is set to 100MB. Those 
+values can be changed in application.properties.
 The application uses a REST-ful style and does not store any state globally and passes variables via
 cookies and POST requests.
 
