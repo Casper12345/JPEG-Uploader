@@ -9,17 +9,6 @@ cookies and POST requests.
 
 All code for this submission was entirely written by Casper Nielsen.
 
-The requirement to satisfy were:
-
--  This test assignment require client+server side implementation
--  The preferred choice of language is Java 1.8
--  Any Java application server (e.g. tomcat/JBoss etc.) can be used
--  Preference will be given to Spring Boot based application framework.
--  No restriction on any libraries or any related code / help from any source but the applicants are
-   required to explain the code during their interview session and choices they made to make
-   this application work.
-
-
 Software stack:
 
 The application is build using Java version 1.8
